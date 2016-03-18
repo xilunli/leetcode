@@ -22,3 +22,9 @@ public class Solution {
         return head;
     }
 }
+
+/**
+ *create 2 pointers, change the link in pairs. 
+ *save the even head so that it can be connected by the last node of odd list. 
+ *check if the list is null or 1 or 2 elements list will increase the speed of the code.
+ */
