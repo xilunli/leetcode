@@ -1,0 +1,59 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* invertTree(TreeNode* root) {
+        switchLeaf(root);
+        return root;
+    }
+    
+    void switchLeaf(TreeNode* node) {
+        if (node == NULL || (node -> left == NULL && node -> right == NULL)) {
+            return;
+        } else {
+            TreeNode* tmp = node -> left;
+            node->left = node->right;
+            node->right = tmp;
+        }
+        switchLeaf(node->left);
+        switchLeaf(node->right);
+    }
+};
+
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode invertTree(TreeNode root) {
+        switchLeaf(root);
+        return root;
+    }
+    void switchLeaf(TreeNode node) {
+        if (node == null || node.left==null && node.right==null) {
+            return;
+        } else {
+            TreeNode tmp = node.left;
+            node.left = node.right;
+            node.right = tmp;
+        }
+        switchLeaf(node.left);
+        switchLeaf(node.right);
+    }
+}
