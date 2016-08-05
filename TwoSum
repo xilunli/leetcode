@@ -19,3 +19,35 @@ public:
         return ans;
 }
 };
+
+
+
+
+
+public class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer,ArrayList<Integer> > myMap = new HashMap<Integer,ArrayList<Integer> >();
+        int[] ans = new int[2];
+        for (int i = 0; i < nums.length; i++) {
+            ArrayList<Integer> list = myMap.get(nums[i]);
+            if (list == null) {
+                list = new ArrayList<Integer>();
+                myMap.put(nums[i], list);
+            }
+            list.add(i);
+        }
+        for (int i = 0; i < nums.length; i++) {
+            int val = target - nums[i];
+            if (myMap.containsKey(val)) {
+                if (val == nums[i] && myMap.get(val).size() > 1 ) {
+                    ans = new int[] {myMap.get(val).get(0), myMap.get(val).get(1)};
+                    return ans;
+                } else if (val != nums[i]) {
+                    ans = new int[] {i, myMap.get(val).get(0)};
+                    return ans;
+                }
+            }
+        }
+        return ans;
+    }
+}
