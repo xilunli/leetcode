@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        unordered_map<char, int> myMap;
+        myMap['I'] = 1;
+        myMap['V'] = 5;
+        myMap['X'] = 10;
+        myMap['L'] = 50;
+        myMap['C'] = 100;
+        myMap['D'] = 500;
+        myMap['M'] = 1000;
+        int ans = myMap[s[s.length()-1]];
+        for (int i = s.length() - 2; i >=0; i--) {
+            if (myMap[s[i]] < myMap[s[i+1]]) {
+                ans -= myMap[s[i]];
+            } else {
+                ans += myMap[s[i]];
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+public class Solution {
+    public int romanToInt(String s) {
+        Map<Character, Integer> myMap = new HashMap<Character, Integer>();
+        myMap.put('I', 1);
+        myMap.put('V', 5);
+        myMap.put('X', 10);
+        myMap.put('L', 50);
+        myMap.put('C', 100);
+        myMap.put('D', 500);
+        myMap.put('M', 1000);
+        int ans = myMap.get(s.charAt(s.length()-1));
+        for(int i = s.length()- 2; i >=0; i--) {
+            if (myMap.get(s.charAt(i)) < myMap.get(s.charAt(i+1))) {
+                ans -= myMap.get(s.charAt(i));
+            } else {
+                ans += myMap.get(s.charAt(i));
+            }
+        }
+        return ans;
+    }
+}
