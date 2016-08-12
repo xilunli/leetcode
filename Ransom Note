@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        if(ransomNote.length() == 0) return true;
+        vector<int> charSet(256,0);
+        for(int i = 0; i < magazine.length(); i++) {
+            charSet[magazine[i]]++;
+        }
+        for(int i = 0; i < ransomNote.length(); i++) {
+            if(--charSet[ransomNote[i]] < 0) return false;
+        }
+        return true;
+    }
+};
+
+
+
+public class Solution {
+    public boolean canConstruct(String ransomNote, String magazine) {
+        if (ransomNote.length() == 0) return true;
+        int[] charSet = new int[256];
+        for(int i = 0; i < magazine.length(); i++) {
+            charSet[magazine.charAt(i)]++;
+        }
+        for(int i = 0; i < ransomNote.length(); i++) {
+            if(--charSet[ransomNote.charAt(i)] < 0) return false;
+        }
+        return true;
+    }
+}
