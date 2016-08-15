@@ -1,0 +1,41 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+        set<int> mySet;
+        while(true) {
+            int sum = 0;
+            while (n >0) {
+                sum += (n%10) * (n%10);
+                n = n/10;
+            }
+            if(sum == 1) return true;
+            if(mySet.count(sum) > 0) {
+                return false;
+            } else {
+                mySet.insert(sum);
+                n = sum;
+            }
+        }
+    }
+};
+
+
+public class Solution {
+    public boolean isHappy(int n) {
+        HashSet<Integer> mySet = new HashSet<Integer>();
+        while(true) {
+            int sum = 0;
+            while (n >0) {
+                sum += (n%10) * (n%10);
+                n = n/10;
+            }
+            if(sum == 1) return true;
+            if(mySet.contains(sum)) {
+                return false;
+            } else {
+                mySet.add(sum);
+                n = sum;
+            }
+        }
+    }
+}
