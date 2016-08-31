@@ -1,0 +1,72 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrderBottom(TreeNode* root) {
+        vector<vector<int>> ans;
+        vector<TreeNode*> currQueue;
+        vector<TreeNode*> nextQueue;
+        if(root == NULL) return ans;
+        currQueue.push_back(root);
+        while(currQueue.size() != 0) {
+            vector<int> myList;
+            int size = currQueue.size();
+            for(int i = 0; i < size; i++) {
+                myList.push_back(currQueue[i]->val);
+                if(currQueue[i]->left != NULL) {
+                    nextQueue.push_back(currQueue[i]->left);
+                }
+                if(currQueue[i]->right != NULL) {
+                    nextQueue.push_back(currQueue[i]->right);
+                }
+            }
+            currQueue = nextQueue;
+            nextQueue.clear();
+            ans.insert(ans.begin(),myList);
+        }
+        return ans;
+    }
+};
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrderBottom(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        Queue<TreeNode> myQueue = new LinkedList<TreeNode>();
+        if(root == null) return ans;
+        myQueue.offer(root);
+        while(myQueue.size() != 0) {
+            int size = myQueue.size();
+            List<Integer> myList = new ArrayList<Integer>();
+            for(int i = 0; i < size; i++) {
+                TreeNode currNode = myQueue.remove();
+                myList.add(currNode.val);
+                if(currNode.left != null) {
+                    myQueue.add(currNode.left);
+                }
+                if(currNode.right != null) {
+                    myQueue.add(currNode.right);
+                }
+            }
+            ans.add(0,myList);
+        }
+        return ans;
+    }
+}
