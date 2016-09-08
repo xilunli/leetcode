@@ -1,0 +1,57 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isSymmetric(TreeNode* root) {
+        if(root == NULL) return true;
+        return isSymm(root->left,root->right);
+        
+    }
+    bool isSymm(TreeNode* left, TreeNode* right) {
+        if(left == NULL) return right==NULL;
+        if(right == NULL) return left==NULL;
+        if(left->val != right->val) return false;
+        return isSymm(left->left, right->right) && isSymm(left->right, right->left);
+    }
+};
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if(root == null) return true;
+        Queue<TreeNode> leftList = new LinkedList<TreeNode>();
+        if(root.left != null) leftList.offer(root.left);
+        Queue<TreeNode> rightList = new LinkedList<TreeNode>();
+        if(root.right != null) rightList.offer(root.right);
+        if(leftList.size() != rightList.size()) return false;
+        while(!leftList.isEmpty() && !rightList.isEmpty()) {
+            TreeNode leftNode = leftList.poll();
+            TreeNode rightNode = rightList.poll();
+            if(leftNode.val != rightNode.val) return false;
+            if(leftNode.left != null) leftList.offer(leftNode.left);
+            if(rightNode.right != null) rightList.offer(rightNode.right);
+            if(leftList.size() != rightList.size()) return false;
+            if(leftNode.right != null) leftList.offer(leftNode.right);
+            if(rightNode.left != null) rightList.offer(rightNode.left);
+            if(leftList.size() != rightList.size()) return false;
+        } 
+        return true;
+    }
+}
