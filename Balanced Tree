@@ -1,0 +1,50 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isBalanced(TreeNode* root) {
+        return getDepth(root) != -1;
+    }
+    int getDepth(TreeNode* node) {
+        if(node == NULL) return 0;
+        int leftDepth = getDepth(node->left);
+        if(leftDepth == -1) return -1;
+        int rightDepth = getDepth(node->right);
+        if(rightDepth == -1) return -1;
+        if(abs(leftDepth - rightDepth) > 1) return -1;
+        return max(leftDepth, rightDepth) + 1;
+    }
+};
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return getDepth(root) != -1;
+    }
+    public int getDepth(TreeNode node) {
+        if(node == null) return 0;
+        int leftDepth = getDepth(node.left);
+        if(leftDepth == -1) return -1;
+        int rightDepth = getDepth(node.right);
+        if(rightDepth == -1) return -1;
+        if(Math.abs(leftDepth - rightDepth) > 1) return -1;
+        return Math.max(leftDepth, rightDepth) + 1;
+    }
+}
