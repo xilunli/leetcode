@@ -1,0 +1,44 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> ans;
+        if(numRows == 0) return ans;
+        vector<int> first;
+        first.push_back(1);
+        ans.push_back(first);
+        vector<int> prev = first;
+        for(int i = 1; i < numRows; i++) {
+          vector<int> curr;
+          curr.push_back(1);
+          for(int j = 0; j < i-1; j++ ) {
+              curr.push_back(prev[j]+prev[j+1]);
+          }
+          curr.push_back(1);
+          ans.push_back(curr);
+          prev = curr;
+        } 
+        return ans;
+    }
+};
+
+public class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        if(numRows == 0) return ans;
+        List<Integer> first = new ArrayList<Integer>();
+        first.add(1);
+        ans.add(first);
+        List<Integer> prev = first;
+        for(int i = 1; i < numRows; i++) {
+            List<Integer> curr = new ArrayList<Integer>();
+            curr.add(1);
+            for(int j = 0; j < i-1; j++) {
+                curr.add(prev.get(j) + prev.get(j+1));
+            }
+            curr.add(1);
+            ans.add(curr);
+            prev = curr;
+        }
+        return ans;
+    }
+}
