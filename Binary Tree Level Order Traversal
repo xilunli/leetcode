@@ -1,0 +1,76 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        vector<vector<int>> ans;
+        vector<TreeNode*> currQueue;
+        vector<TreeNode*> nextQueue;
+        if(root == NULL) return ans;
+        currQueue.push_back(root);
+        while(currQueue.size() != 0) {
+            vector<int> myList;
+            int size = currQueue.size();
+            for(int i = 0; i < size; i++) {
+                myList.push_back(currQueue[i]->val);
+                if(currQueue[i]->left != NULL) {
+                    nextQueue.push_back(currQueue[i]->left);
+                }
+                if(currQueue[i]->right != NULL) {
+                    nextQueue.push_back(currQueue[i]->right);
+                }
+            }
+            currQueue = nextQueue;
+            nextQueue.clear();
+            ans.push_back(myList);
+        }
+        return ans;
+    }
+};
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<List<Integer>>();
+        if(root == null) return ans;
+        List<TreeNode> first = new ArrayList<TreeNode>();
+        first.add(root);
+        List<Integer> firstVal = new ArrayList<Integer>();
+        firstVal.add(root.val);
+        ans.add(firstVal);
+        List<TreeNode> prev = first;
+        while(prev.size() != 0) {
+            List<TreeNode> curr = new ArrayList<TreeNode>();
+            List<Integer> currAns = new ArrayList<Integer>();
+            for(int i = 0; i < prev.size(); i++) {
+                if(prev.get(i).left != null) {
+                    curr.add(prev.get(i).left);
+                    currAns.add(prev.get(i).left.val);
+                }
+                if(prev.get(i).right != null){
+                    curr.add(prev.get(i).right);
+                    currAns.add(prev.get(i).right.val);
+                }
+            }
+            if(currAns.size()!=0) ans.add(currAns);
+            prev = curr;
+        }
+        return ans;
+    }
+}
