@@ -1,0 +1,66 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<string> binaryTreePaths(TreeNode* root) {
+        vector<string> ans;
+        if(root==NULL) return ans;
+        string path = "";
+        dfs(root,path,ans);
+        return ans;
+    }
+    void dfs(TreeNode* root, string path, vector<string> &ans){
+            string newPath = path + to_string(root->val);
+            if(!root->left && !root->right) ans.push_back(newPath);
+            if(root->left) dfs(root->left, newPath+"->",ans);
+            if(root->right) dfs(root->right, newPath+"->",ans);
+    }
+};
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
+        List<String> ans = new ArrayList<String>();
+        if(root == null) return ans;
+        List<String> prevSum = new ArrayList<String>();
+        prevSum.add("" + root.val);
+        List<TreeNode> prev = new ArrayList<TreeNode>();
+        prev.add(root);
+        while(prev.size()!=0) {
+            List<TreeNode> curr = new ArrayList<TreeNode>();
+            List<String> currSum = new ArrayList<String>();
+            for(int i=0; i<prev.size(); i++){
+                if(prev.get(i).left != null) {
+                    curr.add(prev.get(i).left);
+                    currSum.add(prevSum.get(i)+"->"+prev.get(i).left.val);
+                }
+                if(prev.get(i).right != null) {
+                    curr.add(prev.get(i).right);
+                    currSum.add(prevSum.get(i)+"->"+prev.get(i).right.val);
+                }
+                if(prev.get(i).left == null && prev.get(i).right == null){
+                    ans.add(0,prevSum.get(i));
+                }
+            }
+            prev = curr;
+            prevSum = currSum;
+        }
+        return ans;
+    }
+}
