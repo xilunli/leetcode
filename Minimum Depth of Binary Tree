@@ -1,0 +1,54 @@
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    int minDepth(TreeNode* root) {
+        if(root == NULL) return 0;
+        int ans=INT_MAX;
+        dfs(root, 1, ans);
+        return ans;
+    }
+    void dfs(TreeNode* node, int sum, int &ans) {
+        if(node->left == NULL && node->right==NULL && sum < ans){
+            ans = sum;
+        }
+        if(node->left!=NULL) dfs(node->left, sum+1, ans);
+        if(node->right!=NULL) dfs(node->right, sum+1, ans);
+    }
+    
+};
+
+
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int minDepth(TreeNode root) {
+        if(root == null) return 0;
+        return dfs(root);
+    }
+    private int dfs(TreeNode node) {
+        if(node == null) return Integer.MAX_VALUE; 
+        if(node.left == null && node.right==null){
+            return 1;
+        }
+        return Math.min(dfs(node.left),dfs(node.right)) +1;
+    }
+}
