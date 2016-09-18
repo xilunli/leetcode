@@ -1,0 +1,63 @@
+class Stack {
+public:
+    // Push element x onto stack.
+    queue<int> myQueue;
+    void push(int x) {
+        queue<int> tmp;
+        while(!myQueue.empty()){
+            tmp.push(myQueue.front());
+            myQueue.pop();
+        }
+        myQueue.push(x);
+        while(!tmp.empty()){
+            myQueue.push(tmp.front());
+            tmp.pop();
+        }
+    }
+
+    // Removes the element on top of the stack.
+    void pop() {
+        myQueue.pop();
+    }
+
+    // Get the top element.
+    int top() {
+        return myQueue.front();
+    }
+
+    // Return whether the stack is empty.
+    bool empty() {
+        return myQueue.empty();
+    }
+};
+
+
+class MyStack {
+    // Push element x onto stack.
+    Queue<Integer> myQueue = new LinkedList<Integer>();
+    public void push(int x) {
+        Queue<Integer> tmp = new LinkedList<Integer>();
+        while(!myQueue.isEmpty()){
+            tmp.add(myQueue.poll());
+        }
+        myQueue.add(x);
+        while(!tmp.isEmpty()){
+            myQueue.add(tmp.poll());
+        }
+    }
+
+    // Removes the element on top of the stack.
+    public void pop() {
+        myQueue.poll();
+    }
+
+    // Get the top element.
+    public int top() {
+        return myQueue.peek();
+    }
+
+    // Return whether the stack is empty.
+    public boolean empty() {
+        return myQueue.isEmpty();
+    }
+}
