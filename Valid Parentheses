@@ -1,0 +1,45 @@
+class Solution {
+public:
+    bool isValid(string s) {
+        char left1 ='(', left2='{', left3='[';
+        char right1 = ')', right2='}', right3=']';
+        int length = s.length();
+        if(length%2!=0 || s[0]==right1 || s[0]==right2 || s[0]==right3 ||
+            s[length-1]==left1 ||s[length-1]==left2 ||s[length-1]==left3) return false;
+        vector<char> myStack;
+        myStack.push_back(s[0]);
+        for(int i=1; i<length-1; i++){
+            if(s[i] == left1 || s[i]==left2 ||s[i]==left3){
+                myStack.push_back(s[i]);
+                continue;
+            }
+            char curr=myStack.back();
+            myStack.pop_back();
+            if((s[i]==right1 && curr!=left1) || (s[i]==right2 && curr!=left2) || (s[i]==right3 && curr!=left3)) return false;
+        }
+        return true;
+    }
+};
+
+
+public class Solution {
+    public boolean isValid(String s) {
+        char left1 ='(', left2='{', left3='[';
+        char right1 = ')', right2='}', right3=']';
+        int length = s.length();
+        if((length%2!=0) || s.charAt(0)==right1 || s.charAt(0)==right2 || s.charAt(0)==right3 ||
+            s.charAt(length-1)==left1 ||s.charAt(length-1)==left2 ||s.charAt(length-1)==left3) return false;
+        Stack<Character> myStack = new Stack<Character>();
+        myStack.push(s.charAt(0));
+        for(int i=1; i<length-1; i++){
+            char ch = s.charAt(i);
+            if(ch == left1 || ch==left2 || ch==left3){
+               myStack.push(ch);
+               continue;
+            } 
+            char curr=myStack.pop();
+            if((ch==right1 && curr!=left1) || (ch==right2 && curr!=left2) ||(ch==right3 && curr!=left3)) return false;
+        }
+        return true;
+    }
+}
