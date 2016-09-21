@@ -1,0 +1,82 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if(headA==NULL || headB == NULL) return NULL;
+        int lenA=1, lenB=1;
+        ListNode *nodeA=headA, *nodeB=headB;
+        while(nodeA->next!=NULL){
+            nodeA = nodeA->next;
+            lenA++;
+        }
+        while(nodeB->next!=NULL){
+            nodeB = nodeB->next;
+            lenB++;
+        }
+        if(nodeA != nodeB) return NULL;
+        if(lenA > lenB) {
+            for(int i=0; i<(lenA-lenB); i++){
+                headA = headA->next;
+            }
+        }else {
+            for(int i=0; i<(lenB-lenA); i++){
+                headB = headB->next;
+            }
+        }
+        while(headA!=headB){
+            headA=headA->next;
+            headB=headB->next;
+        }
+        return headA;
+    }
+};
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if(headA==null || headB == null) return null;
+        int lenA=1, lenB=1;
+        ListNode nodeA=headA, nodeB=headB;
+        while(nodeA.next!=null){
+            nodeA = nodeA.next;
+            lenA++;
+        }
+        while(nodeB.next!=null){
+            nodeB = nodeB.next;
+            lenB++;
+        }
+        if(nodeA != nodeB) return null;
+        if(lenA > lenB) {
+            for(int i=0; i<(lenA-lenB); i++){
+                headA = headA.next;
+            }
+        }else {
+            for(int i=0; i<(lenB-lenA); i++){
+                headB = headB.next;
+            }
+        }
+        while(headA!=headB){
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return headA;
+    }
+} 
