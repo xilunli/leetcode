@@ -1,0 +1,49 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int aLen = a.length(), bLen=b.length();
+        int carry = 0;
+        string ans = "";
+        while(aLen>0 || bLen>0){
+            int aVal = aLen>0? a[aLen-1]-'0':0;
+            int bVal = bLen>0? b[bLen-1]-'0':0;
+            int sum = aVal + bVal + carry;
+            ans.insert(ans.begin(),sum%2+'0');
+            carry = sum/2;
+            aLen--;
+            bLen--;
+        }
+        if(carry==1) ans.insert(ans.begin(),'1');
+        return ans;
+    }
+};
+
+
+
+public class Solution {
+    public String addBinary(String a, String b) {
+        if(a.length() < b.length()) {
+            String tmp = a;
+            a = b;
+            b = tmp;
+        }
+        int aLen = a.length(), bLen=b.length();
+        int carry = 0;
+        String ans = "";
+        while(bLen>0){
+            int sum = (int) (a.charAt(aLen-1)-'0') + (int) (b.charAt(bLen-1)-'0') + carry;
+            ans = String.valueOf(sum%2) + ans;
+            carry = sum/2;
+            aLen--;
+            bLen--;
+        }
+        while(aLen>0){
+            int sum = (int) (a.charAt(aLen-1)-'0') + carry;
+            ans = String.valueOf(sum%2) + ans;
+            carry = sum/2;
+            aLen--;
+        }
+        if(carry==1) ans = '1' + ans;
+        return ans;
+    }
+}
