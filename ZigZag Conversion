@@ -1,0 +1,42 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows==1) return s;
+        string ans="";
+        int incr = (numRows - 1)*2;
+        for(int i=0; i<numRows; i++){
+            string tmp="";
+            int j = i, dt = (numRows-i-1)*2;
+            while(j<s.length()){
+                tmp += s[j];
+                if(dt!=0 && dt!=incr && (j+dt)<s.length()){
+                    tmp += s[j+dt];
+                }
+                j += incr;
+            }
+            ans += tmp;
+        }
+        return ans;
+    }
+    
+    
+public class Solution {
+    public String convert(String s, int numRows) {
+        if(numRows==1) return s;
+        String ans="";
+        int incr = (numRows - 1)*2;
+        for(int i=0; i<numRows; i++){
+            String tmp="";
+            int j = i, dt = (numRows-i-1)*2;
+            while(j<s.length()){
+                tmp += s.charAt(j);
+                if(dt!=0 && dt!=incr && (j+dt)<s.length()){
+                    tmp += s.charAt(j+dt);
+                }
+                j += incr;
+            }
+            ans += tmp;
+        }
+        return ans;
+    }
+}    
