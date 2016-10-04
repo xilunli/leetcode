@@ -1,0 +1,67 @@
+class MinStack {
+    stack<int> myStack, minStack;
+public:
+    /** initialize your data structure here. */
+    MinStack() {
+        
+    }
+    
+    void push(int x) {
+        if(minStack.empty()) {
+            minStack.push(x);
+        } else {
+            minStack.push(min(x, minStack.top()));
+        }
+        myStack.push(x);
+    }
+    
+    void pop() {
+        minStack.pop();
+        myStack.pop();
+    }
+    
+    int top() {
+        return myStack.top();
+    }
+    
+    int getMin() {
+        return minStack.top();
+    }
+};
+
+
+public class MinStack {
+    Stack<Integer> myStack;
+    Stack<Integer> minStack;
+    /** initialize your data structure here. */
+    public MinStack() {
+        myStack = new Stack<Integer>();
+        minStack = new Stack<Integer>();
+    }
+    
+    public void push(int x) {
+        if(minStack.empty()){
+            minStack.push(x);
+        }else {
+            minStack.push(Math.min(x, minStack.peek()));
+        }
+        myStack.push(x);
+    }
+    
+    public void pop() {
+        minStack.pop();
+        myStack.pop();
+        
+    }
+    
+    public int top() {
+        return myStack.peek();
+    }
+    
+    public int getMin() {
+        return minStack.peek();
+    }
+}
+
+
+
