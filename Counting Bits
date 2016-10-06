@@ -1,0 +1,30 @@
+//利用了i&(i - 1)， 这个本来是用来判断一个数是否是2的指数的快捷方法，比如8，二进制位1000, 那么8&(8-1)为0，只要为0就是2的指数
+//每个i值的1的个数都是i&(i-1)对应的1的格式的值加1
+class Solution {
+public:
+    vector<int> countBits(int num) {
+        vector<int> ans(num+1, 0);
+        ans[0]=0;
+        for(int i=1; i<=num; i++){
+            ans[i]=ans[i&(i-1)] + 1;
+        }
+        return ans;
+    }
+};
+
+//从1开始，遇到偶数时，其1的个数和该偶数除以2得到的数字的1的个数相同，遇到奇数时，其1的个数等于该奇数除以2得到的数字的1的个数再加1
+
+public class Solution {
+    public int[] countBits(int num) {
+        int[] ans = new int[num+1];
+        ans[0] = 0;
+        for(int i=1; i<=num; i++) {
+            if(i%2==0){
+                ans[i]=ans[i/2];  
+            } else {
+                ans[i]=ans[i/2] + 1;
+            }
+        }
+        return ans;
+    }
+}
