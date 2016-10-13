@@ -1,0 +1,50 @@
+class Solution {
+private:
+    vector<int> original;
+public:
+    Solution(vector<int> nums) {
+        this->original = nums;   
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    vector<int> reset() {
+        return original;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    vector<int> shuffle() {
+        vector<int> ans = original;
+        for(int i=0; i<ans.size(); i++) {
+            int t = rand() % ans.size();
+            swap(ans[i], ans[t]);
+        }
+        return ans;
+    }
+};
+
+public class Solution {
+    private int length;
+    private int[] original;
+    public Solution(int[] nums) {
+        this.original = nums;
+        this.length = nums.length;
+    }
+    
+    /** Resets the array to its original configuration and return it. */
+    public int[] reset() {
+        return original;
+    }
+    
+    /** Returns a random shuffling of the array. */
+    public int[] shuffle() {
+        int[] ans = Arrays.copyOf(original,length);
+        Random random = new Random();
+        for(int i=0; i<length; i++) {
+            int t = random.nextInt(length);
+            int tmp = ans[t];
+            ans[t] = ans[i];
+            ans[i]=tmp;
+        }
+        return ans;
+    }
+}
