@@ -1,0 +1,78 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if(matrix.size()==0 || matrix[0].size()==0) {
+            return false;
+        }
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int start = 0, end = row*col-1;
+        while(start+1<end){
+            int mid = start + (end-start)/2;
+            if(target == matrix[mid/col][mid%col]) {
+                return true;
+            } else if(target < matrix[mid/col][mid%col]) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if(matrix[start/col][start%col] == target){
+            return true;
+        } else if(matrix[end/col][end%col] == target){
+            return true;
+        } else {
+            return false;
+        }
+    }
+};
+
+
+public class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        if(matrix == null || matrix.length == 0) {
+            return false;
+        }
+        if(matrix[0] == null || matrix[0].length == 0) {
+            return false;
+        }
+        int row = matrix.length;
+        int col = matrix[0].length;
+        int start = 0, end = row-1;
+        while(start + 1 < end) {
+            int mid = start + (end-start)/2;
+            if(target == matrix[mid][0]) {
+                return true;
+            } else if(target < matrix[mid][0]) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if(target >= matrix[end][0]) {
+            row = end;
+        } else if (target >= matrix[start][0]) {
+            row = start;
+        } else {
+            return false;
+        }
+        start = 0;
+        end = col -1 ;
+        while(start + 1 < end) {
+            int mid = start + (end-start)/2;
+            if(target == matrix[row][mid]) {
+                return true;
+            } else if(target < matrix[row][mid]) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if(target == matrix[row][start] || target == matrix[row][end]) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
+}
