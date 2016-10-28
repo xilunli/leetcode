@@ -1,0 +1,35 @@
+class Solution {
+public:
+    void rotate(vector<int>& nums, int k) {
+        int length = nums.size();
+        k = k%length;
+        reverse(nums, 0, length-k-1);
+        reverse(nums, length-k, length-1);
+        reverse(nums, 0, length-1);
+    }
+    void reverse(vector<int>& nums, int i, int j) {
+        while(i < j){
+            int tmp = nums[i];
+            nums[i++] = nums[j];
+            nums[j--] = tmp;
+        }
+    }
+};
+
+
+public class Solution {
+    public void rotate(int[] nums, int k) {
+        int length = nums.length;
+        k = k%length;
+        reverse(nums, 0, length-k-1);
+        reverse(nums, length-k, length-1);
+        reverse(nums, 0, length-1);
+    }
+    private void reverse( int[] nums, int i, int j) {
+        while(i < j){
+            int tmp = nums[i];
+            nums[i++] = nums[j];
+            nums[j--] = tmp;
+        }
+    }
+}
