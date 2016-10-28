@@ -1,0 +1,85 @@
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        vector<int> ans(2,-1);
+        if(ans.size()==0){
+            return ans;
+        }
+        int start = 0, end = nums.size()-1;
+        while(start+1 < end) {
+            int mid = start + (end-start)/2;
+            if(target == nums[mid]){
+                end=mid;
+            } else if(target>nums[mid]){
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        if(target == nums[start]) {
+            ans[0]=start;
+        }else if(target == nums[end]){
+            ans[0] = end;
+        }
+        
+        start=0;
+        end = nums.size()-1;
+        while(start+1 < end) {
+            int mid = start + (end-start)/2;
+            if(target == nums[mid]){
+                start=mid;
+            } else if(target>nums[mid]){
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        if(target == nums[end]) {
+            ans[1]=end;
+        }else if(target == nums[start]){
+            ans[1] = start;
+        }
+        return ans;
+    }
+};
+
+
+
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int[] ans = {-1, -1};
+        if(nums == null || nums.length==0) {
+            return ans;
+        }
+        int start=0, end=nums.length-1;
+        while(start+1 < end) {
+            int mid = start + (end-start)/2;
+            if(target >= nums[mid]) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        if(target==nums[end]) {
+            ans[1]=end;
+        }else if (target == nums[start]) {
+            ans[1]=start;
+        }
+        start=0;
+        end=nums.length-1;
+        while(start+1 < end) {
+            int mid = start + (end-start)/2;
+            if(target <= nums[mid]) {
+                end = mid;
+            } else {
+                start = mid;
+            }
+        }
+        if(target==nums[start]) {
+            ans[0]=start;
+        }else if(target==nums[end]){
+            ans[0]=end;
+        }
+        return ans;
+    }
+}
