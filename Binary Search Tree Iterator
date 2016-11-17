@@ -1,0 +1,81 @@
+/**
+ * Definition for binary tree
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class BSTIterator {
+stack<TreeNode*> myStack;
+TreeNode* node;
+public:
+    BSTIterator(TreeNode *root) {
+        node = root;
+    }
+
+    /** @return whether we have a next smallest number */
+    bool hasNext() {
+        return !myStack.empty() || node!=NULL;
+    }
+
+    /** @return the next smallest number */
+    int next() {
+        while(node != NULL) {
+            myStack.push(node);
+            node = node->left;
+        }
+        TreeNode* tmp = myStack.top();
+        myStack.pop();
+        node = tmp->right;
+        return tmp->val;
+    }
+};
+
+/**
+ * Your BSTIterator will be called like this:
+ * BSTIterator i = BSTIterator(root);
+ * while (i.hasNext()) cout << i.next();
+ */
+ 
+ 
+ /**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+
+public class BSTIterator {
+    private Stack<TreeNode> myStack = new Stack<TreeNode>();
+    private TreeNode node;
+    public BSTIterator(TreeNode root) {
+        node = root;
+    }
+
+    /** @return whether we have a next smallest number */
+    public boolean hasNext() {
+        return !myStack.empty() || node != null;
+    }
+
+    /** @return the next smallest number */
+    public int next() {
+        while(node != null) {
+            myStack.push(node);
+            node = node.left;
+        }
+        TreeNode tmp = myStack.pop();
+        node = tmp.right;
+        return tmp.val;
+    }
+}
+
+/**
+ * Your BSTIterator will be called like this:
+ * BSTIterator i = new BSTIterator(root);
+ * while (i.hasNext()) v[f()] = i.next();
+ */
