@@ -1,0 +1,67 @@
+class Solution {
+public:
+    vector<string> wordBreak(string s, unordered_set<string>& wordDict) {
+        vector<string> ans;
+        int n = s.size();
+        if(n == 0) {
+            return ans;
+        }
+        string tmp = "";
+        vector<bool> possible(n+1, true);
+        getAns(0, s, n, tmp, ans, wordDict, possible);
+        return ans;
+    }
+    void getAns(int start, string& s, int n, string& tmp, vector<string>& ans, unordered_set<string>& wordDict, vector<bool>& possible) {
+        if(start == n) {
+            ans.push_back(tmp.substr(0, tmp.size() - 1));
+            return;
+        }
+            for(int i = start; i < n; i++) {
+                string sub = s.substr(start, i-start+1);
+                if((wordDict.count(sub) > 0) && possible[i+1]) {
+                    tmp.append(sub).append(" ");
+                    int size = ans.size();
+                    getAns(i+1, s, n, tmp, ans, wordDict, possible);
+                    if(size == ans.size()) {
+                        possible[i+1] = false;
+                    }
+                    tmp = tmp.substr(0, tmp.size() - sub.size() - 1);
+                }
+            }
+    }
+};
+
+
+
+
+
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        List<String> ans = new ArrayList<String>();
+        String tmp = "";
+        boolean[] map = new boolean[s.length() + 1];
+        for(int i = 0; i< s.length()+1; i++) {
+            map[i] = true;
+        }
+        getAns(0, s, ans, tmp, wordDict, map);
+        return ans;
+    }
+    private void getAns(int start, String s, List<String> ans, String tmp, Set<String> wordDict, boolean[] map) {
+        if(start == s.length()) {
+            ans.add(tmp.trim());
+            return;
+        }
+        for(int i = start; i < s.length(); i++) {
+            String sub = s.substring(start, i+1);
+            if(wordDict.contains(sub) && map[i+1]) {
+                tmp += sub + " ";
+                int size = ans.size();
+                getAns(i+1, s, ans, tmp, wordDict, map);
+                if(size == ans.size()) {
+                    map[i+1] = false;
+                }
+                tmp = tmp.substring(0, tmp.length() - sub.length()-1);
+            }
+        }
+    }
+}
