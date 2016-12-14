@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isOneEditDistance(string s, string t) {
+        int n = s.size();
+        int m = t.size();
+        for(int i = 0; i < min(n, m); i++) {
+            if(s[i] != t[i]) {
+                if(n == m) {
+                    return s.substr(i+1).compare(t.substr(i+1)) == 0;
+                } else if(n > m) {
+                    return s.substr(i+1).compare(t.substr(i)) == 0;
+                } else {
+                    return s.substr(i).compare(t.substr(i+1)) == 0;
+                }
+            }
+        }
+        return abs(n - m) == 1;
+    }
+};
+
+
+public class Solution {
+    public boolean isOneEditDistance(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+            for(int i = 0; i < Math.min(n, m); i++) {
+                if(s.charAt(i) != t.charAt(i)) {
+                    if( n == m) {
+                        return s.substring(i+1).equals(t.substring(i+1));
+                    } else if(n > m) {
+                        return s.substring(i+1).equals(t.substring(i));
+                    } else {
+                        return s.substring(i).equals(t.substring(i+1));
+                    }
+                }
+            }
+            return Math.abs(n - m) == 1;
+    }
+}
