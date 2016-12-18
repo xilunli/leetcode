@@ -1,0 +1,67 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int m, int n) {
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        ListNode* nodeM = head;
+        ListNode* prevM = dummy;
+        for(int i = 1; i< m; i++) {
+            prevM = nodeM;
+            nodeM = nodeM->next;
+        }
+        ListNode* nodeN = nodeM;
+        ListNode* postN = nodeM->next;
+        for(int i = m; i< n; i++){
+            ListNode* tmp = postN->next;
+            postN->next = nodeN;
+            nodeN = postN;
+            postN = tmp;
+        }
+        prevM->next = nodeN;
+        nodeM->next = postN;
+        head = dummy->next;
+        delete dummy;
+        return head;
+    }
+};
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode nodeM = head;
+        ListNode prevM = dummy;
+        for(int i = 1; i < m; i++) {
+            prevM = nodeM;
+            nodeM = nodeM.next;
+        }
+        ListNode nodeN = nodeM;
+        ListNode postN = nodeM.next;
+        for(int i = m; i < n; i++) {
+            ListNode tmp = postN.next;
+            postN.next = nodeN;
+            nodeN = postN;
+            postN = tmp;
+        }
+        prevM.next = nodeN;
+        nodeM.next = postN;
+        return dummy.next;
+    }
+}
