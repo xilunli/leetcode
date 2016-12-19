@@ -1,0 +1,128 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) {
+        if(head == NULL || head->next == NULL) {
+            return head;
+        }
+        ListNode* mid = findMid(head);
+        ListNode* right = sortList(mid->next);
+        mid->next = NULL;
+        ListNode* left = sortList(head);
+        return merger(left, right);
+    }
+    
+    ListNode* findMid(ListNode* head) {
+        if(head == NULL || head->next == NULL) {
+            return head;
+        }
+        ListNode* slow = head;
+        ListNode* fast = head->next;
+        while(fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    
+    ListNode* merger(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* curr = dummy;
+        while(list1 != NULL && list2 != NULL) {
+            if(list1->val < list2->val) {
+                curr->next = list1;
+                list1 = list1->next;
+            } else {
+                curr->next = list2;
+                list2 = list2->next;
+            }
+            curr = curr->next;
+        }
+        if (list1 != NULL) {
+            curr->next = list1;
+        } else if(list2!= NULL) {
+            curr->next = list2;
+        }
+        list1 = dummy->next;
+        delete dummy;
+        return list1;
+    }
+};
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode mid = findMid(head);
+        ListNode dummyLeft = new ListNode(0);
+        ListNode dummyRight = new ListNode(0);
+        ListNode dummyMiddle = new ListNode(0);
+        ListNode left = dummyLeft, right = dummyRight, middle = dummyMiddle;
+        while(head != null) {
+            if(head.val < mid.val) {
+                left.next = head;
+                left = left.next;
+            } else if(head.val > mid.val) {
+                right.next = head;
+                right = right.next;
+            } else {
+                middle.next = head;
+                middle = middle.next;
+            }
+            head = head.next;
+        }
+        left.next = null;
+        right.next = null;
+        middle.next = null;
+        ListNode ansLeft= sortList(dummyLeft.next);
+        ListNode ansRight = sortList(dummyRight.next);
+        return concat(ansLeft, dummyMiddle.next, ansRight);
+    }
+    
+    private ListNode findMid(ListNode head) {
+        ListNode slow = head, fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    private ListNode concat(ListNode left, ListNode middle, ListNode right) {
+        ListNode dummyHead = new ListNode(0);
+        ListNode tail = dummyHead;
+        dummyHead.next = left;
+        tail = getTail(tail);
+        tail.next = middle;
+        tail = getTail(tail);
+        tail.next = right;
+        return dummyHead.next;
+    }
+    private ListNode getTail(ListNode head) {
+        if(head == null) {
+            return head;
+        }
+        while(head.next != null) {
+            head = head.next;
+        }
+        return head;
+    }
+
+}
