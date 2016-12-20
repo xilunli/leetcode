@@ -1,0 +1,100 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if(head == NULL || head->next == NULL) {
+            return head;
+        }
+        int length = getLength(head);
+        k = k % length;
+        ListNode* dummy = new ListNode(0);
+        dummy->next = head;
+        head = dummy;
+        ListNode* tail = dummy;
+        for(int i = 0; i < k; i++) {
+            head = head->next;
+        }
+        while(head->next != NULL) {
+            tail = tail->next;
+            head = head->next;
+        }
+        head->next = dummy->next;
+        dummy->next = tail->next;
+        tail->next = NULL;
+        return dummy->next;
+    }
+    
+    int getLength(ListNode* head) {
+        int length = 0;
+        while(head != NULL) {
+            length++;
+            head = head->next;
+        }
+        return length;
+    }
+};
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        int length = getLength(head);
+        k = k % length;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        head = dummy;
+        ListNode tail = dummy;
+        for(int i = 0; i < k; i++) {
+            head = head.next;
+        }
+        while(head.next != null) {
+            tail = tail.next;
+            head = head.next;
+        }
+        
+        head.next= dummy.next;
+        dummy.next = tail.next;
+        tail.next = null;
+        return dummy.next;
+        
+    }
+    
+    private int getLength(ListNode head) {
+        int length = 0;
+        while(head != null) {
+            length++;
+            head = head.next;
+        }
+        return length;
+    }
+    
+    private ListNode getTail(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        while(head.next != null) {
+            head = head.next;
+        }
+        return head;
+    }
+    
+    
+}
