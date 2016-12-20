@@ -1,0 +1,97 @@
+/**
+ * Definition for singly-linked list with a random pointer.
+ * struct RandomListNode {
+ *     int label;
+ *     RandomListNode *next, *random;
+ *     RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    RandomListNode *copyRandomList(RandomListNode *head) {
+        if(head == NULL) {
+            return NULL;
+        }
+        copy(head);
+        copyRandom(head);
+        return split(head);
+    }
+    
+    void copy(RandomListNode* head) {
+        RandomListNode* newNode;
+        while(head != NULL) {
+            newNode = new RandomListNode(head->label);
+            newNode->next = head->next;
+            newNode->random = head->random;
+            head->next = newNode;
+            head = head->next->next;
+        }
+    }
+    
+    void copyRandom(RandomListNode* head) {
+        RandomListNode* curr = head;
+        while(curr != NULL) {
+            if(curr->next->random != NULL) {
+                curr->next->random = curr->random->next;
+            }
+            curr = curr->next->next;
+        }
+    }
+    
+    RandomListNode* split(RandomListNode* head) {
+        RandomListNode* newHead = head->next;
+        RandomListNode* tmp;
+        while(head != NULL) {
+            tmp = head->next;
+            head->next = head->next->next;
+            head = head->next;
+            if(head != NULL) {
+                tmp->next = head->next;
+            }
+        }
+        return newHead;
+    }
+};
+
+
+
+/**
+ * Definition for singly-linked list with a random pointer.
+ * class RandomListNode {
+ *     int label;
+ *     RandomListNode next, random;
+ *     RandomListNode(int x) { this.label = x; }
+ * };
+ */
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if(head == null) {
+            return head;
+        }
+        Map<RandomListNode, RandomListNode> map = new HashMap<RandomListNode, RandomListNode>();
+        RandomListNode dummy = new RandomListNode(0);
+        RandomListNode prev = dummy, newNode;
+        while(head != null) {
+            if(map.containsKey(head)) {
+                newNode = map.get(head);
+            } else {
+                newNode = new RandomListNode(head.label);
+                map.put(head, newNode);
+            }
+            prev.next = newNode;
+            if(head.random != null) {
+                if(map.containsKey(head.random)) {
+                    newNode.random = map.get(head.random);
+                } else {
+                    newNode.random = new RandomListNode(head.random.label);
+                    map.put(head.random, newNode.random);
+                }
+            } else {
+                newNode.random = null;
+            }
+            prev = newNode;
+            head = head.next;
+        }
+        return dummy.next;
+    }
+}
