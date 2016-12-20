@@ -1,0 +1,123 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head == NULL || head->next == NULL) {
+            return;
+        }
+        ListNode* mid = findMid(head);
+        ListNode* tail = reverse(mid->next);
+        mid->next = NULL;
+        merger(head, tail);
+    }
+    
+    ListNode* findMid(ListNode* head) {
+        if(head == NULL || head->next == NULL) {
+            return head;
+        }
+        ListNode *slow = head, *fast = head->next;
+        while(fast != NULL && fast->next != NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    
+    ListNode* reverse(ListNode* head) {
+        ListNode* prev = NULL;
+        while(head != NULL) {
+            ListNode* tmp = head->next;
+            head->next = prev;
+            prev = head;
+            head = tmp;
+        }
+        return prev;
+    }
+    
+    void merger(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode(0);
+        while(list1 != NULL && list2 != NULL) {
+            dummy->next = list1;
+            list1 = list1->next;
+            dummy = dummy->next;
+            dummy->next = list2;
+            list2 = list2->next;
+            dummy = dummy->next;
+        }
+        if(list1 != NULL) {
+            dummy->next = list1;
+        } else {
+            dummy->next = list2;
+        }
+    }
+};
+
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void reorderList(ListNode head) {
+        if(head == null || head.next == null){
+            return;
+        }
+        ListNode mid = findMid(head);
+        ListNode right = reverse(mid.next);
+        mid.next = null;
+        merger(head, right);
+    }
+    
+    private ListNode findMid(ListNode head) {
+        if(head == null || head.next == null) {
+            return head;
+        }
+        ListNode slow = head, fast = head.next;
+        while(fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    
+    private ListNode reverse(ListNode head) {
+        ListNode prev = null;
+        while(head != null) {
+            ListNode tmp = head.next;
+            head.next = prev;
+            prev = head;
+            head = tmp;
+        }
+        return prev;
+    }
+    
+    private void merger(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        while(list1 != null && list2 != null) {
+            dummy.next = list1;
+            list1 = list1.next;
+            dummy = dummy.next;
+            dummy.next = list2;
+            list2 = list2.next;
+            dummy = dummy.next;
+        }
+        if(list1 != null) {
+            dummy.next = list1;
+        }else {
+            dummy.next = list2;
+        }
+    }
+}
