@@ -82,3 +82,106 @@ public class Solution {
     
     
 }
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.size() == 0) {
+            return NULL;
+        }
+        while(lists.size() > 1) {
+            vector<ListNode*> newLists;
+            for(int i = 0; i + 1 < lists.size(); i = i + 2) {
+                newLists.push_back(mergerLists(lists[i], lists[i+1]));
+            }
+            if(lists.size() % 2 == 1) {
+                newLists.push_back(lists[lists.size() - 1]);
+            }
+            lists = newLists;
+        }
+        return lists[0];
+    }
+    ListNode* mergerLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* curr = dummy;
+        while(list1 != NULL && list2 != NULL) {
+            if(list1->val < list2->val) {
+                curr->next = list1;
+                list1 = list1->next;
+            } else {
+                curr->next = list2;
+                list2 = list2->next;
+            }
+            curr = curr->next;
+            
+        }
+        if(list1 != NULL) {
+            curr->next = list1;
+        } else {
+            curr->next = list2;
+        }
+        curr = dummy->next;
+        delete dummy;
+        return curr;
+    }
+};
+
+
+
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists.length == 0) {
+            return null;
+        }
+        return mergeHelper(lists, 0, lists.length - 1);
+    }
+    
+    private ListNode mergeHelper(ListNode[] lists, int start, int end) {
+        if(start == end) {
+            return lists[start];
+        }
+        int mid = start + (end - start)/2;
+        ListNode left = mergeHelper(lists, start, mid);
+        ListNode right = mergeHelper(lists, mid+1, end);
+        return mergerLists(left, right);
+    }
+    
+    private ListNode mergerLists(ListNode list1, ListNode list2) {
+        ListNode dummy = new ListNode(0);
+        ListNode curr = dummy;
+        while(list1 != null && list2 != null) {
+            if(list1.val < list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            curr = curr.next;
+        }
+        if(list1 != null) {
+            curr.next = list1;
+        } else {
+            curr.next = list2;
+        }
+        return dummy.next;
+    }
+}
