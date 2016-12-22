@@ -1,0 +1,125 @@
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        vector<int> res;
+        if(nums1.size() == 0 || nums2.size() == 0) {
+            return res;
+        }
+        unordered_set<int> mySet, ans;
+        for(int i = 0; i < nums1.size(); i++) {
+            mySet.insert(nums1[i]);
+        }
+        for(int i = 0; i < nums2.size(); i++) {
+            if(mySet.count(nums2[i]) > 0) {
+                ans.insert(nums2[i]);
+            }
+        }
+        for(int num: ans) {
+            res.push_back(num);
+        }
+        return res;
+    }
+};
+
+
+
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        HashSet<Integer> ans = new HashSet<Integer>();
+        HashSet<Integer> set = new HashSet<Integer>();
+        for(int i = 0; i < nums1.length; i++) {
+                set.add(nums1[i]);
+        }
+        for(int i = 0; i < nums2.length; i++) {
+            if(set.contains(nums2[i])) {
+                ans.add(nums2[i]);
+            }
+        }
+        int[] res = new int[ans.size()];
+        int index = 0;
+        for(Integer num: ans) {
+            res[index++] = num;
+        }
+        return res;
+    }
+}
+
+
+
+
+
+class Solution {
+public:
+    vector<int> intersection(vector<int>& nums1, vector<int>& nums2) {
+        sort(nums1.begin(), nums1.end());
+        sort(nums2.begin(), nums2.end());
+        vector<int> ans;
+        vector<int>::iterator it1 = nums1.begin(), it2 = nums2.begin();
+        while(it1 != nums1.end() && it2 != nums2.end()) {
+            if(*it1 == *it2 && (ans.size() == 0 || ans[ans.size() -1] != *it1)) {
+                ans.push_back(*it1);
+                it1++;
+                it2++;
+            } else if(*it1 > *it2) {
+                it2++;
+            } else {
+                it1++;
+            }
+        }
+        return ans;
+    }
+};
+
+
+
+
+
+
+
+public class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        if(nums1.length == 0) {
+            return nums1;
+        }
+        if(nums2.length == 0) {
+            return nums2;
+        }
+        Arrays.sort(nums1);
+        HashSet<Integer> mySet = new HashSet<Integer>();
+        for(Integer num: nums2) {
+            if(binarySearch(nums1, num) != -1) {
+                mySet.add(num);
+            }
+        }
+        int[] ans = new int[mySet.size()];
+        int index = 0;
+        for(Integer num: mySet) {
+            ans[index++] = num;
+        }
+        return ans;
+    }
+    
+    private int binarySearch(int[] nums, int n) {
+        if(nums.length == 0) {
+            return -1;
+        }
+        int start = 0, end = nums.length - 1;
+        while(start + 1 < end) {
+            int mid = start + (end - start)/2;
+            if(nums[mid] == n) {
+                return mid;
+            } else if(nums[mid] < n) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        if(nums[start] == n) {
+            return start;
+        } else if(nums[end] == n) {
+            return end;
+        } else {
+            return -1;
+        }
+    }
+}
