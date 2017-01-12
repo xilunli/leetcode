@@ -1,0 +1,59 @@
+class Solution {
+public:
+    
+    string largestNumber(vector<int>& nums) {
+        if(nums.size() == 0) {
+            return "";
+        }
+        vector<string> sNums;
+        for(int i: nums) {
+            sNums.push_back(to_string(i));
+        }
+        sort(sNums.begin(), sNums.end(), [](string &s1, string &s2){return s1 + s2 > s2 + s1;});
+        string ans = "";
+        if(sNums[0].compare("0") == 0) {
+            return "0";
+        }
+        for(string s: sNums) {
+            ans += s;
+        }
+        return ans;
+    }
+    
+};
+
+
+
+
+public class Solution {
+    public String largestNumber(int[] nums) {
+        if(nums == null || nums.length == 0)
+		    return "";
+		
+		// Convert int array to String array, so we can sort later on
+		String[] s_num = new String[nums.length];
+		for(int i = 0; i < nums.length; i++)
+		    s_num[i] = String.valueOf(nums[i]);
+			
+		// Comparator to decide which string should come first in concatenation
+		Comparator<String> comp = new Comparator<String>() {
+		    public int compare(String str1, String str2){
+		    String s1 = str1 + str2;
+			String s2 = str2 + str1;
+			return s2.compareTo(s1); 
+		    }
+		};
+		
+		Arrays.sort(s_num, comp);
+                // An extreme edge case by lc, say you have only a bunch of 0 in your int array
+        if(s_num[0].charAt(0) == '0') {
+            return "0";
+            }
+		String ans = "";
+		for(String s: s_num)
+	            ans += s;
+		
+		return ans;
+		
+    }
+}
