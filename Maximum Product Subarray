@@ -1,0 +1,36 @@
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        if(nums.size() == 0) {
+            return 0;
+        }
+        int ans = nums[0], preMax = nums[0], preMin = nums[0], currMax, currMin;
+        for(int i = 1; i < nums.size(); i++) {
+            currMax = max(max(preMax*nums[i], preMin*nums[i]), nums[i]);
+            currMin = min(min(preMax*nums[i], preMin*nums[i]), nums[i]);
+            ans = max(ans, currMax);
+            preMax = currMax;
+            preMin = currMin;
+        }
+        return ans;
+    }
+};
+
+
+public class Solution {
+    public int maxProduct(int[] nums) {
+        int length = nums.length;
+        if(length == 0) {
+            return 0;
+        }
+        int ans = nums[0], max = ans, min = ans, preMax = ans,preMin = ans;
+        for(int i = 1; i < length; i++) {
+            max = Math.max(Math.max(preMax*nums[i], preMin*nums[i]), nums[i]);
+            min = Math.min(Math.min(preMax*nums[i], preMin*nums[i]), nums[i]);
+            ans = Math.max(ans, max);
+            preMax = max;
+            preMin = min;
+        }
+        return ans;
+    }
+}
